@@ -2,12 +2,11 @@ import riderModel from "../models/riderModel.js"
 
 const addRecord = async(req, res)=>{
     try{
-        const {name, date, is_garantee, smart_inbound_sop} = req.body
+        const {phone, name, date} = req.body
         const riderData = {
+            phone,
             name, 
-            date,
-            is_garantee,
-            smart_inbound_sop
+            date
         }
 
         const newRecord = new riderModel(riderData)
