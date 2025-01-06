@@ -21,7 +21,9 @@ const riderSchema = new mongoose.Schema({
     sp2_3_epod:{type:String, required:false},
     sp2_attendance:{type:String, required:false},
     status:{type:String, default:'submit'},
-    reportItem:{type:Object, required:false}
+    reportItem:{type:Object, required:false},
+    comment:{type: String, required:false},
+    image:{type: Array, required:false}
 })
 
 const riderModel = mongoose.models.rider || mongoose.model('rider', riderSchema)
