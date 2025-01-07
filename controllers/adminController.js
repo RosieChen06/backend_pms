@@ -50,8 +50,8 @@ const readDB = async(req, res) => {
 const updateDB = async(req, res) => {
     try{
 
-        const { riderId, date, name, is_garantee, smart_inbound_sop, status} = req.body
-        await riderModel.findByIdAndUpdate(riderId, {name, date, is_garantee, smart_inbound_sop, status})
+        const { riderId, sp2_1_appsheet, sp2_1_epod, sp2_1_sop, sp2_2_appsheet, sp2_2_epod, sp2_2_sop, sp2_3_appsheet, sp2_3_epod, sp2_3_sop, sp2_attendance, admincomment, status} = req.body
+        await riderModel.findByIdAndUpdate(riderId, {sp2_1_appsheet, sp2_1_epod, sp2_1_sop, sp2_2_appsheet, sp2_2_epod, sp2_2_sop, sp2_3_appsheet, sp2_3_epod, sp2_3_sop, sp2_attendance, admincomment, status})
         res.json({success:true, message:"Updated Successful"})
 
     }catch(error){

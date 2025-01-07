@@ -23,7 +23,8 @@ const riderSchema = new mongoose.Schema({
     status:{type:String, default:'submit'},
     reportItem:{type:Object, required:false},
     comment:{type: String, required:false},
-    image:{type: Array, required:false}
+    image:{type: Array, required:false},
+    admincomment: {type: String, required:false},
 })
 
 const riderModel = mongoose.models.rider || mongoose.model('rider', riderSchema)
