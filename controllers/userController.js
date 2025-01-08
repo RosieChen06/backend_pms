@@ -17,7 +17,7 @@ const isCheck = async(req, res) => {
 const reportItem = async(req, res) => {
     try{
 
-        const { riderId, status, reportItem, comment} = req.body
+        const { riderId, status, reportItem, comment, reportdatetime} = req.body
         const image1 = req.files.image1 && req.files.image1[0]
         const image2 = req.files.image2 && req.files.image2[0]
         const image3 = req.files.image3 && req.files.image3[0]
@@ -33,7 +33,7 @@ const reportItem = async(req, res) => {
 
         console.log(imageUrl)
 
-        await riderModel.findByIdAndUpdate(riderId, {status, reportItem, comment, image: imageUrl})
+        await riderModel.findByIdAndUpdate(riderId, {status, reportItem, comment, image: imageUrl, reportdatetime})
         res.json({success:true, message:"已提交回報"})
 
     }catch(error){

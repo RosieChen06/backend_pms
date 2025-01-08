@@ -25,6 +25,7 @@ const riderSchema = new mongoose.Schema({
     comment:{type: String, required:false},
     image:{type: Array, required:false},
     admincomment: {type: String, required:false},
+    reportdatetime: {type: String, required:false}
 })
 
 const riderModel = mongoose.models.rider || mongoose.model('rider', riderSchema)
