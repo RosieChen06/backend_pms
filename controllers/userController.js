@@ -42,4 +42,32 @@ const reportItem = async(req, res) => {
     }
 }
 
-export {isCheck, reportItem}
+const replyItem = async(req, res) => {
+    try{
+
+        const { riderId, status, comment} = req.body
+        const uploadimage1 = req.files.uploadimage1 && req.files.uploadimage1[0]
+        const uploadimage2 = req.files.uploadimage2 && req.files.uploadimage2[0]
+        const uploadimage3 = req.files.uploadimage3 && req.files.uploadimage3[0]
+
+        const images = [uploadimage1, uploadimage2, uploadimage3].filter((item)=> item !== undefined)
+
+        let imageUrl = await Promise.all(
+            images.map(async(item)=>{
+                let result = await cloudinary.uploader.upload(item.path, {resource_type:'image'});
+                return result.secure_url
+            })
+        )
+
+        console.log(imageUrl)
+
+        await riderModel.findByIdAndUpdate(riderId, {status, comment, image: imageUrl})
+        res.json({success:true, message:"已提交回復"})
+
+    }catch(error){
+        console.log(error)
+        res.json({success:false, message:error.message})
+    }
+}
+
+export {isCheck, reportItem, replyItem}
