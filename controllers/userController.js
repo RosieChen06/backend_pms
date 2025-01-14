@@ -45,12 +45,12 @@ const reportItem = async(req, res) => {
 const replyItem = async(req, res) => {
     try{
 
-        const { riderId, status, comment} = req.body
-        const uploadimage1 = req.files.uploadimage1 && req.files.uploadimage1[0]
-        const uploadimage2 = req.files.uploadimage2 && req.files.uploadimage2[0]
-        const uploadimage3 = req.files.uploadimage3 && req.files.uploadimage3[0]
+        const { riderId, status, comment, imageUrl1, imageUrl2, imageUrl3} = req.body
+        const image1 = req.files.image1 && req.files.image1[0]
+        const image2 = req.files.image2 && req.files.image2[0]
+        const image3 = req.files.image3 && req.files.image3[0]
 
-        const images = [uploadimage1, uploadimage2, uploadimage3].filter((item)=> item !== undefined)
+        const images = [image1, image2, image3].filter((item)=> item !== undefined)
 
         let imageUrl = await Promise.all(
             images.map(async(item)=>{
@@ -58,6 +58,15 @@ const replyItem = async(req, res) => {
                 return result.secure_url
             })
         )
+        if(imageUrl1.startsWith('http')){
+            imageUrl.push(imageUrl1)
+        }
+        if(imageUrl2.startsWith('http')){
+            imageUrl.push(imageUrl2)
+        }
+        if(imageUrl3.startsWith('http')){
+            imageUrl.push(imageUrl3)
+        }
 
         console.log(imageUrl)
 

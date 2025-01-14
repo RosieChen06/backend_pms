@@ -25,7 +25,9 @@ const riderSchema = new mongoose.Schema({
     comment:{type: String, required:false},
     image:{type: Array, required:false},
     admincomment: {type: String, required:false},
-    reportdatetime: {type: String, required:false}
+    reportdatetime: {type: String, required:false},
+    weeknum: {type: String, required:true},
+    is_online_bonus_report: {type: String, default:''},
 })
 
 const riderModel = mongoose.models.rider || mongoose.model('rider', riderSchema)
