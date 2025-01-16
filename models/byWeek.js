@@ -15,6 +15,7 @@ const riderWeekSchema = new mongoose.Schema({
     admincomment: {type: String, required:false},
     reportdatetime: {type: String, required:false},
     weeknum: {type: String, required:true},
+    uncleanCnt: {type: String, required:true},
 })
 
 const riderWeekModel = mongoose.models.riderByWeek || mongoose.model('riderByWeek', riderWeekSchema)
