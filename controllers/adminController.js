@@ -3,28 +3,39 @@ import riderModel from "../models/riderModel.js"
 
 const addRecord = async(req, res)=>{
     try{
-        const {phone, name, date, sp2_1, sp2_1_remaindelivering, sp2_1_sop, sp2_1_appsheet, sp2_1_epod, sp2_2, sp2_2_remaindelivering, sp2_2_sop, sp2_2_appsheet, sp2_2_epod, sp2_3, sp2_3_remaindelivering, sp2_3_sop, sp2_3_appsheet, sp2_3_epod, sp2_attendance, weeknum, ttl_delivered, ttl_worksday, ttl_workday_weekend, seq, epod_lost, uncleanCnt} = req.body
+        const {phone, name, date, sp2_1, sp2_1_ttl_delivered, sp2_1_delivered, sp2_1_serve_type, sp2_1_onhold, sp2_1_remaindelivering, sp2_1_sop, sp2_1_appsheet, sp2_2, sp2_2_serve_type, sp2_2_ttl_delivered, sp2_2_delivered, sp2_2_onlold, sp2_2_remaindelivering, sp2_2_sop, sp2_2_appsheet, sp2_3, sp2_3_serve_type, sp2_3_onlold, sp2_3_ttl_delivered, sp2_3_delivered, sp2_3_remaindelivering, sp2_3_sop, sp2_3_appsheet, sp2_attendance, weeknum, ttl_delivered, ttl_worksday, ttl_workday_weekend, seq, epod_lost, uncleanCnt, epod, lost_cnt} = req.body
         const riderData = {
             phone,
             name,
             date,
             sp2_1,
+            sp2_1_serve_type,
+            sp2_1_onhold,
+            sp2_1_ttl_delivered,
+            sp2_1_delivered,
             sp2_1_remaindelivering,
             sp2_1_sop,
             sp2_1_appsheet,
-            sp2_1_epod,
             sp2_2,
+            sp2_2_serve_type,
+            sp2_2_onlold,
+            sp2_2_ttl_delivered,
+            sp2_2_delivered,
             sp2_2_remaindelivering,
             sp2_2_sop,
             sp2_2_appsheet,
-            sp2_2_epod,
             sp2_3,
+            sp2_3_serve_type,
+            sp2_3_onlold,
+            sp2_3_ttl_delivered,
+            sp2_3_delivered,
             sp2_3_remaindelivering,
             sp2_3_sop,
             sp2_3_appsheet,
-            sp2_3_epod,
             sp2_attendance,
-            weeknum
+            weeknum,
+            epod, 
+            lost_cnt
         }
 
         const newRecord = new riderModel(riderData)
