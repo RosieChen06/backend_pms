@@ -3,12 +3,19 @@ import riderModel from "../models/riderModel.js"
 
 const addRecord = async(req, res)=>{
     try{
-        const {phone, name, date, sp2_1, sp2_1_ttl_delivered, sp2_1_delivered, sp2_1_serve_type, sp2_1_onhold, sp2_1_remaindelivering, sp2_1_sop, sp2_1_appsheet, sp2_2, sp2_2_serve_type, sp2_2_ttl_delivered, sp2_2_delivered, sp2_2_onlold, sp2_2_remaindelivering, sp2_2_sop, sp2_2_appsheet, sp2_3, sp2_3_serve_type, sp2_3_onlold, sp2_3_ttl_delivered, sp2_3_delivered, sp2_3_remaindelivering, sp2_3_sop, sp2_3_appsheet, sp2_attendance, weeknum, ttl_delivered, ttl_worksday, ttl_workday_weekend, seq, epod_lost, uncleanCnt, epod, lost_cnt} = req.body
+        const {phone, name, date, is_garantee, sp2_1, sp2_1_is_servicce_bonus, sp2_1_serve_type, sp2_1_onhold,
+            sp2_1_ttl_delivered, sp2_1_delivered, sp2_1_remaindelivering, sp2_1_sop, sp2_1_appsheet,
+            sp2_2, sp2_2_is_servicce_bonus, sp2_2_serve_type, sp2_2_onhold, sp2_2_ttl_delivered, sp2_2_delivered,
+            sp2_2_remaindelivering, sp2_2_sop, sp2_2_appsheet, sp2_3, sp2_3_is_servicce_bonus, sp2_3_serve_type,
+            sp2_3_onhold, sp2_3_ttl_delivered, sp2_3_delivered, sp2_3_remaindelivering, sp2_3_sop, sp2_3_appsheet, 
+            sp2_attendance, weeknum, ttl_delivered, ttl_worksday, ttl_workday_weekend, seq, epod_lost, uncleanCnt, epod, lost_cnt, is_online_bonus} = req.body
         const riderData = {
             phone,
             name,
             date,
+            is_garantee,
             sp2_1,
+            sp2_1_is_servicce_bonus,
             sp2_1_serve_type,
             sp2_1_onhold,
             sp2_1_ttl_delivered,
@@ -17,16 +24,18 @@ const addRecord = async(req, res)=>{
             sp2_1_sop,
             sp2_1_appsheet,
             sp2_2,
+            sp2_2_is_servicce_bonus,
             sp2_2_serve_type,
-            sp2_2_onlold,
+            sp2_2_onhold,
             sp2_2_ttl_delivered,
             sp2_2_delivered,
             sp2_2_remaindelivering,
             sp2_2_sop,
             sp2_2_appsheet,
             sp2_3,
+            sp2_3_is_servicce_bonus,
             sp2_3_serve_type,
-            sp2_3_onlold,
+            sp2_3_onhold,
             sp2_3_ttl_delivered,
             sp2_3_delivered,
             sp2_3_remaindelivering,
@@ -54,7 +63,8 @@ const addRecord = async(req, res)=>{
                 seq,
                 epod_lost,
                 weeknum,
-                uncleanCnt
+                uncleanCnt,
+                is_online_bonus
             }
                 
             const newRecord2 = new riderWeekModel(riderData2)
