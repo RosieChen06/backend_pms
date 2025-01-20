@@ -105,8 +105,8 @@ const readWeekDB = async(req, res) => {
 const updateDB = async(req, res) => {
     try{
 
-        const { riderId, sp2_1_appsheet, sp2_1_epod, sp2_1_sop, sp2_2_appsheet, sp2_2_epod, sp2_2_sop, sp2_3_appsheet, sp2_3_epod, sp2_3_sop, sp2_attendance, admincomment, status} = req.body
-        await riderModel.findByIdAndUpdate(riderId, {sp2_1_appsheet, sp2_1_epod, sp2_1_sop, sp2_2_appsheet, sp2_2_epod, sp2_2_sop, sp2_3_appsheet, sp2_3_epod, sp2_3_sop, sp2_attendance, admincomment, status})
+        const { riderId, sp2_1_remaindelivering, sp2_1_onhold, sp2_1_delivered, sp2_1_serve_type, sp2_1_appsheet, sp2_1_epod, sp2_1_sop, sp2_2_remaindelivering, sp2_2_onhold, sp2_2_delivered, sp2_2_serve_type,  sp2_2_appsheet, sp2_2_epod, sp2_2_sop, sp2_3_remaindelivering, sp2_3_onhold, sp2_3_delivered, sp2_3_serve_type,  sp2_3_appsheet, sp2_3_epod, sp2_3_sop, sp2_attendance, admincomment, status} = req.body
+        await riderModel.findByIdAndUpdate(riderId, {sp2_1_remaindelivering, sp2_1_onhold, sp2_1_delivered, sp2_1_serve_type, sp2_1_appsheet, sp2_1_epod, sp2_1_sop, sp2_2_remaindelivering, sp2_2_onhold, sp2_2_delivered, sp2_2_serve_type,  sp2_2_appsheet, sp2_2_epod, sp2_2_sop, sp2_3_remaindelivering, sp2_3_onhold, sp2_3_delivered, sp2_3_serve_type,  sp2_3_appsheet, sp2_3_epod, sp2_3_sop, sp2_attendance, admincomment, status})
         res.json({success:true, message:"Updated Successful"})
 
     }catch(error){
