@@ -51,7 +51,7 @@ const reportItem = async(req, res) => {
 const replyItem = async(req, res) => {
     try{
 
-        const { riderId, status, comment, imageUrl1, imageUrl2, imageUrl3} = req.body
+        const { riderId, status, comment, imageUrl1, imageUrl2, imageUrl3, type} = req.body
         const image1 = req.files.image1 && req.files.image1[0]
         const image2 = req.files.image2 && req.files.image2[0]
         const image3 = req.files.image3 && req.files.image3[0]
@@ -74,9 +74,11 @@ const replyItem = async(req, res) => {
             imageUrl.push(imageUrl3)
         }
 
-        console.log(imageUrl)
-
-        await riderModel.findByIdAndUpdate(riderId, {status, comment, image: imageUrl})
+        if(type==='day'){
+            await riderModel.findByIdAndUpdate(riderId, {status, comment, image: imageUrl})
+        }else{
+            await riderWeekModel.findByIdAndUpdate(riderId, {status, comment, image: imageUrl})
+        }
         res.json({success:true, message:"已提交回復"})
 
     }catch(error){
