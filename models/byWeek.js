@@ -16,6 +16,7 @@ const riderWeekSchema = new mongoose.Schema({
     reportdatetime: {type: String, required:false},
     weeknum: {type: String, required:true},
     uncleanCnt: {type: String, required:true},
+    lost_cnt: {type: Array, required:false},
     is_online_bonus:{type: String, required:true},
 })
 

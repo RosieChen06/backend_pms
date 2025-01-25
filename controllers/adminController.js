@@ -137,4 +137,18 @@ const updateWeekDB = async(req, res) => {
     }
 }
 
-export {addRecord, readDB, updateDB, readWeekDB, updateWeekDB}
+const missingParcelRegistration = async(req, res) => {
+    try{
+
+        const {riderId, riderWeekId, is_garantee, sp2_1_is_servicce_bonus, sp2_2_is_servicce_bonus, sp2_3_is_servicce_bonus, is_online_bonus} = req.body
+
+        await riderWeekModel.findByIdAndUpdate(riderWeekId, {ttl_delivered, ttl_worksday, ttl_workday_weekend, seq, epod_lost, is_online_bonus, admincomment, status})
+        res.json({success:true, message:"Updated Successful"})
+
+    }catch(error){
+        console.log(error)
+        res.json({success:false, message:error.message})
+    }
+}
+
+export {addRecord, readDB, updateDB, readWeekDB, updateWeekDB, missingParcelRegistration}
