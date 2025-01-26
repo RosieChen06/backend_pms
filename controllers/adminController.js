@@ -140,9 +140,10 @@ const updateWeekDB = async(req, res) => {
 const missingParcelRegistration = async(req, res) => {
     try{
 
-        const {riderId, riderWeekId, is_garantee, sp2_1_is_servicce_bonus, sp2_2_is_servicce_bonus, sp2_3_is_servicce_bonus, is_online_bonus} = req.body
+        const {riderId, riderWeekId, is_garantee, sp2_1_is_servicce_bonus, sp2_2_is_servicce_bonus, sp2_3_is_servicce_bonus, is_online_bonus, day_lost_cnt, week_lost_cnt} = req.body
 
-        await riderWeekModel.findByIdAndUpdate(riderWeekId, {ttl_delivered, ttl_worksday, ttl_workday_weekend, seq, epod_lost, is_online_bonus, admincomment, status})
+        await riderModel.findByIdAndUpdate(riderId, {is_garantee, sp2_1_is_servicce_bonus, sp2_2_is_servicce_bonus, sp2_3_is_servicce_bonus, lost_cnt: day_lost_cnt})
+        await riderWeekModel.findByIdAndUpdate(riderWeekId, {is_online_bonus, lost_cnt: week_lost_cnt})
         res.json({success:true, message:"Updated Successful"})
 
     }catch(error){
