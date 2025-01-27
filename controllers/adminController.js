@@ -79,6 +79,80 @@ const addRecord = async(req, res)=>{
     }
 }
 
+const massiveRecordUpload = async(req, res)=>{
+    try{
+        const {dataset} = req.body
+
+        for(let i=0; i<JSON.parse(dataset).length; i++){
+            const riderData = {
+                phone: JSON.parse(dataset)[i].phone,
+                name: JSON.parse(dataset)[i].name,
+                date: JSON.parse(dataset)[i].date,
+                is_garantee: JSON.parse(dataset)[i].is_garantee,
+                sp2_1: JSON.parse(dataset)[i].sp2_1,
+                sp2_1_is_servicce_bonus: JSON.parse(dataset)[i].sp2_1_is_servicce_bonus,
+                sp2_1_serve_type: JSON.parse(dataset)[i].sp2_1_serve_type,
+                sp2_1_onhold: JSON.parse(dataset)[i].sp2_1_onhold,
+                sp2_1_ttl_delivered: JSON.parse(dataset)[i].sp2_1_ttl_delivered,
+                sp2_1_delivered: JSON.parse(dataset)[i].sp2_1_delivered,
+                sp2_1_remaindelivering: JSON.parse(dataset)[i].sp2_1_remaindelivering,
+                sp2_1_sop: JSON.parse(dataset)[i].sp2_1_sop,
+                sp2_1_appsheet: JSON.parse(dataset)[i].sp2_1_appsheet,
+                sp2_2: JSON.parse(dataset)[i].sp2_2,
+                sp2_2_is_servicce_bonus: JSON.parse(dataset)[i].sp2_2_is_servicce_bonus,
+                sp2_2_serve_type: JSON.parse(dataset)[i].sp2_2_serve_type,
+                sp2_2_onhold: JSON.parse(dataset)[i].sp2_2_onhold,
+                sp2_2_ttl_delivered: JSON.parse(dataset)[i].sp2_2_ttl_delivered,
+                sp2_2_delivered: JSON.parse(dataset)[i].sp2_2_delivered,
+                sp2_2_remaindelivering: JSON.parse(dataset)[i].sp2_2_remaindelivering,
+                sp2_2_sop: JSON.parse(dataset)[i].sp2_2_sop,
+                sp2_2_appsheet: JSON.parse(dataset)[i].sp2_2_appsheet,
+                sp2_3: JSON.parse(dataset)[i].sp2_3,
+                sp2_3_is_servicce_bonus: JSON.parse(dataset)[i].sp2_3_is_servicce_bonus,
+                sp2_3_serve_type: JSON.parse(dataset)[i].sp2_3_serve_type,
+                sp2_3_onhold: JSON.parse(dataset)[i].sp2_3_onhold,
+                sp2_3_ttl_delivered: JSON.parse(dataset)[i].sp2_3_ttl_delivered,
+                sp2_3_delivered: JSON.parse(dataset)[i].sp2_3_delivered,
+                sp2_3_remaindelivering: JSON.parse(dataset)[i].sp2_3_remaindelivering,
+                sp2_3_sop: JSON.parse(dataset)[i].sp2_3_sop,
+                sp2_3_appsheet: JSON.parse(dataset)[i].sp2_3_appsheet,
+                sp2_attendance: JSON.parse(dataset)[i].sp2_attendance,
+                weeknum: JSON.parse(dataset)[i].weeknum,
+                epod: JSON.parse(dataset)[i].epod, 
+                lost_cnt: JSON.parse(dataset)[i].lost_cnt
+            }
+            const newRecord = new riderModel(riderData)
+            await newRecord.save()
+
+            const isExist = await riderWeekModel.find({weeknum:JSON.parse(dataset)[i].weeknum, name:JSON.parse(dataset)[i].name})
+
+            if(isExist.length===0){
+                const riderData2 = {
+                    phone: JSON.parse(dataset)[i].phone,
+                    name: JSON.parse(dataset)[i].name,
+                    ttl_delivered: JSON.parse(dataset)[i].ttl_delivered,
+                    ttl_worksday: JSON.parse(dataset)[i].ttl_worksday,
+                    ttl_workday_weekend: JSON.parse(dataset)[i].ttl_workday_weekend,
+                    seq: JSON.parse(dataset)[i].seq,
+                    epod_lost: JSON.parse(dataset)[i].epod_lost,
+                    weeknum: JSON.parse(dataset)[i].weeknum,
+                    uncleanCnt: JSON.parse(dataset)[i].uncleanCnt,
+                    is_online_bonus: JSON.parse(dataset)[i].is_online_bonus,
+                }
+                    
+                const newRecord2 = new riderWeekModel(riderData2)
+                await newRecord2.save()
+            }
+        }  
+
+        res.json({success:true, message:'Record Saved'})
+        
+    }catch(error){
+        console.log(error)
+        res.json({success:false, message:error.message})
+    }
+}
+
 const readDB = async(req, res) => {
     try{
         const riders = await riderModel.find({})
@@ -152,4 +226,4 @@ const missingParcelRegistration = async(req, res) => {
     }
 }
 
-export {addRecord, readDB, updateDB, readWeekDB, updateWeekDB, missingParcelRegistration}
+export {addRecord, readDB, updateDB, readWeekDB, updateWeekDB, missingParcelRegistration, massiveRecordUpload}

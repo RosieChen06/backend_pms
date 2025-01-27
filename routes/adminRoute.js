@@ -1,5 +1,5 @@
 import express from 'express'
-import {addRecord, missingParcelRegistration, readDB, readWeekDB, updateDB, updateWeekDB} from '../controllers/adminController.js'
+import {addRecord, massiveRecordUpload, missingParcelRegistration, readDB, readWeekDB, updateDB, updateWeekDB} from '../controllers/adminController.js'
 import upload from '../middleweares/multer.js'
 
 const adminRouter = express.Router()
@@ -10,5 +10,6 @@ adminRouter.get('/week-data',readWeekDB)
 adminRouter.post('/update-data', upload.single('image'), updateDB)
 adminRouter.post('/update-weekdata', upload.single('image'), updateWeekDB)
 adminRouter.post('/missing-parcel', upload.single('image'), missingParcelRegistration)
+adminRouter.post('/massive-upload', upload.single('image'), massiveRecordUpload)
 
 export default adminRouter
