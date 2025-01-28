@@ -164,6 +164,29 @@ const readDB = async(req, res) => {
     }
 }
 
+const deleteDB = async(req, res) => {
+    const {riderId} = req.body
+    try{
+        const data = await riderModel.findByIdAndDelete(riderId)
+        res.json({success:true, data})
+    }catch(error){
+        console.log(error)
+        res.json({success:false, message:error.message})
+    }
+}
+
+const deleteAll = async(req, res) => {
+    const {riderId, riderWeekId} = req.body
+    try{
+        const data = await riderModel.findByIdAndDelete(riderId)
+        const weekData = await riderWeekModel.findByIdAndDelete(riderWeekId)
+        res.json({success:true, message:"Delete Successful"})
+    }catch(error){
+        console.log(error)
+        res.json({success:false, message:error.message})
+    }
+}
+
 const readWeekDB = async(req, res) => {
     try{
         const weekData = await riderWeekModel.find({})
@@ -226,4 +249,4 @@ const missingParcelRegistration = async(req, res) => {
     }
 }
 
-export {addRecord, readDB, updateDB, readWeekDB, updateWeekDB, missingParcelRegistration, massiveRecordUpload}
+export {addRecord, readDB, updateDB, readWeekDB, updateWeekDB, missingParcelRegistration, massiveRecordUpload, deleteDB, deleteAll}
