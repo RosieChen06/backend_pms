@@ -220,6 +220,20 @@ const updateDB = async(req, res) => {
     }
 }
 
+const updateStatus = async(req, res) => {
+    try{
+
+        const { riderId, status} = req.body
+        await riderModel.findByIdAndUpdate(riderId, {status})
+
+        res.json({success:true, message:"Updated Successful"})
+
+    }catch(error){
+        console.log(error)
+        res.json({success:false, message:error.message})
+    }
+}
+
 const updateWeekDB = async(req, res) => {
     try{
 
@@ -249,4 +263,4 @@ const missingParcelRegistration = async(req, res) => {
     }
 }
 
-export {addRecord, readDB, updateDB, readWeekDB, updateWeekDB, missingParcelRegistration, massiveRecordUpload, deleteDB, deleteAll}
+export {addRecord, readDB, updateDB, readWeekDB, updateWeekDB, missingParcelRegistration, massiveRecordUpload, deleteDB, deleteAll, updateStatus}
