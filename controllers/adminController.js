@@ -149,8 +149,6 @@ const massiveRecordUpload = async(req, res)=>{
                 const newRecord2 = new riderWeekModel(riderData2)
                 await newRecord2.save()
             }
-            res.json({message:'Record Saved'})
-            
         }  
 
         res.json({success:true, message:'Record Saved'})
