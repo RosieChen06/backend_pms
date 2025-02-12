@@ -87,48 +87,51 @@ const massiveRecordUpload = async(req, res)=>{
         const {dataset} = req.body
 
         for(let i=0; i<JSON.parse(dataset).length; i++){
-            const riderData = {
-                phone: JSON.parse(dataset)[i].phone,
-                name: JSON.parse(dataset)[i].name,
-                date: JSON.parse(dataset)[i].date,
-                is_garantee: JSON.parse(dataset)[i].is_garantee,
-                sp2_1: JSON.parse(dataset)[i].sp2_1,
-                sp2_1_is_servicce_bonus: JSON.parse(dataset)[i].sp2_1_is_servicce_bonus,
-                sp2_1_serve_type: JSON.parse(dataset)[i].sp2_1_serve_type,
-                sp2_1_onhold: JSON.parse(dataset)[i].sp2_1_onhold,
-                sp2_1_ttl_delivered: JSON.parse(dataset)[i].sp2_1_ttl_delivered,
-                sp2_1_assign_delivered: JSON.parse(dataset)[i].sp2_1_assign_delivered,
-                sp2_1_delivered: JSON.parse(dataset)[i].sp2_1_delivered,
-                sp2_1_remaindelivering: JSON.parse(dataset)[i].sp2_1_remaindelivering,
-                sp2_1_sop: JSON.parse(dataset)[i].sp2_1_sop,
-                sp2_1_appsheet: JSON.parse(dataset)[i].sp2_1_appsheet,
-                sp2_2: JSON.parse(dataset)[i].sp2_2,
-                sp2_2_is_servicce_bonus: JSON.parse(dataset)[i].sp2_2_is_servicce_bonus,
-                sp2_2_serve_type: JSON.parse(dataset)[i].sp2_2_serve_type,
-                sp2_2_onhold: JSON.parse(dataset)[i].sp2_2_onhold,
-                sp2_2_ttl_delivered: JSON.parse(dataset)[i].sp2_2_ttl_delivered,
-                sp2_2_assign_delivered: JSON.parse(dataset)[i].sp2_2_assign_delivered,
-                sp2_2_delivered: JSON.parse(dataset)[i].sp2_2_delivered,
-                sp2_2_remaindelivering: JSON.parse(dataset)[i].sp2_2_remaindelivering,
-                sp2_2_sop: JSON.parse(dataset)[i].sp2_2_sop,
-                sp2_2_appsheet: JSON.parse(dataset)[i].sp2_2_appsheet,
-                sp2_3: JSON.parse(dataset)[i].sp2_3,
-                sp2_3_is_servicce_bonus: JSON.parse(dataset)[i].sp2_3_is_servicce_bonus,
-                sp2_3_serve_type: JSON.parse(dataset)[i].sp2_3_serve_type,
-                sp2_3_onhold: JSON.parse(dataset)[i].sp2_3_onhold,
-                sp2_3_ttl_delivered: JSON.parse(dataset)[i].sp2_3_ttl_delivered,
-                sp2_3_assign_delivered: JSON.parse(dataset)[i].sp2_3_assign_delivered,
-                sp2_3_delivered: JSON.parse(dataset)[i].sp2_3_delivered,
-                sp2_3_remaindelivering: JSON.parse(dataset)[i].sp2_3_remaindelivering,
-                sp2_3_sop: JSON.parse(dataset)[i].sp2_3_sop,
-                sp2_3_appsheet: JSON.parse(dataset)[i].sp2_3_appsheet,
-                sp2_attendance: JSON.parse(dataset)[i].sp2_attendance,
-                weeknum: JSON.parse(dataset)[i].weeknum,
-                epod: JSON.parse(dataset)[i].epod, 
-                lost_cnt: JSON.parse(dataset)[i].lost_cnt
+            const isExist_0 = await riderModel.find({name:JSON.parse(dataset)[i].name, date:JSON.parse(dataset)[i].date})
+            if(isExist_0.length===0){
+                const riderData = {
+                    phone: JSON.parse(dataset)[i].phone,
+                    name: JSON.parse(dataset)[i].name,
+                    date: JSON.parse(dataset)[i].date,
+                    is_garantee: JSON.parse(dataset)[i].is_garantee,
+                    sp2_1: JSON.parse(dataset)[i].sp2_1,
+                    sp2_1_is_servicce_bonus: JSON.parse(dataset)[i].sp2_1_is_servicce_bonus,
+                    sp2_1_serve_type: JSON.parse(dataset)[i].sp2_1_serve_type,
+                    sp2_1_onhold: JSON.parse(dataset)[i].sp2_1_onhold,
+                    sp2_1_ttl_delivered: JSON.parse(dataset)[i].sp2_1_ttl_delivered,
+                    sp2_1_assign_delivered: JSON.parse(dataset)[i].sp2_1_assign_delivered,
+                    sp2_1_delivered: JSON.parse(dataset)[i].sp2_1_delivered,
+                    sp2_1_remaindelivering: JSON.parse(dataset)[i].sp2_1_remaindelivering,
+                    sp2_1_sop: JSON.parse(dataset)[i].sp2_1_sop,
+                    sp2_1_appsheet: JSON.parse(dataset)[i].sp2_1_appsheet,
+                    sp2_2: JSON.parse(dataset)[i].sp2_2,
+                    sp2_2_is_servicce_bonus: JSON.parse(dataset)[i].sp2_2_is_servicce_bonus,
+                    sp2_2_serve_type: JSON.parse(dataset)[i].sp2_2_serve_type,
+                    sp2_2_onhold: JSON.parse(dataset)[i].sp2_2_onhold,
+                    sp2_2_ttl_delivered: JSON.parse(dataset)[i].sp2_2_ttl_delivered,
+                    sp2_2_assign_delivered: JSON.parse(dataset)[i].sp2_2_assign_delivered,
+                    sp2_2_delivered: JSON.parse(dataset)[i].sp2_2_delivered,
+                    sp2_2_remaindelivering: JSON.parse(dataset)[i].sp2_2_remaindelivering,
+                    sp2_2_sop: JSON.parse(dataset)[i].sp2_2_sop,
+                    sp2_2_appsheet: JSON.parse(dataset)[i].sp2_2_appsheet,
+                    sp2_3: JSON.parse(dataset)[i].sp2_3,
+                    sp2_3_is_servicce_bonus: JSON.parse(dataset)[i].sp2_3_is_servicce_bonus,
+                    sp2_3_serve_type: JSON.parse(dataset)[i].sp2_3_serve_type,
+                    sp2_3_onhold: JSON.parse(dataset)[i].sp2_3_onhold,
+                    sp2_3_ttl_delivered: JSON.parse(dataset)[i].sp2_3_ttl_delivered,
+                    sp2_3_assign_delivered: JSON.parse(dataset)[i].sp2_3_assign_delivered,
+                    sp2_3_delivered: JSON.parse(dataset)[i].sp2_3_delivered,
+                    sp2_3_remaindelivering: JSON.parse(dataset)[i].sp2_3_remaindelivering,
+                    sp2_3_sop: JSON.parse(dataset)[i].sp2_3_sop,
+                    sp2_3_appsheet: JSON.parse(dataset)[i].sp2_3_appsheet,
+                    sp2_attendance: JSON.parse(dataset)[i].sp2_attendance,
+                    weeknum: JSON.parse(dataset)[i].weeknum,
+                    epod: JSON.parse(dataset)[i].epod, 
+                    lost_cnt: JSON.parse(dataset)[i].lost_cnt
+                }
+                const newRecord = new riderModel(riderData)
+                await newRecord.save()
             }
-            const newRecord = new riderModel(riderData)
-            await newRecord.save()
 
             const isExist = await riderWeekModel.find({weeknum:JSON.parse(dataset)[i].weeknum, name:JSON.parse(dataset)[i].name})
 
