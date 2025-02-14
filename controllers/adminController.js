@@ -164,7 +164,7 @@ const massiveRecordUpload = async(req, res)=>{
 
 const readDB = async(req, res) => {
     try{
-        const riders = await riderModel.find(db.collection.find({"name": /^DT/})
+        const riders = await riderModel.find(db.collection.find({})
         res.json({success:true, riders})
 
     }catch(error){
@@ -198,7 +198,7 @@ const deleteAll = async(req, res) => {
 
 const readWeekDB = async(req, res) => {
     try{
-        const weekData = await riderWeekModel.find({"name": /^DT/})
+        const weekData = await riderWeekModel.find({})
         res.json({success:true, weekData})
 
     }catch(error){
