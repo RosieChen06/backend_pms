@@ -163,10 +163,10 @@ const massiveRecordUpload = async(req, res)=>{
 }
 
 const readDB = async(req, res) => {
-    const {ta} = req.body
     try{
+        const {ta} = req.body
         if(ta==='user'){
-            const riders = await riderModel.find({name:"^DT"})
+            const riders = await riderModel.find({ name: /^DT/ }); 
             res.json({success:true, riders})
         }else{
             const riders = await riderModel.find({})
@@ -203,10 +203,10 @@ const deleteAll = async(req, res) => {
 }
 
 const readWeekDB = async(req, res) => {
-    const {ta} = req.body
     try{
+        const {ta} = req.body
         if(ta==='user'){
-            const weekData = await riderWeekModel.find({name:"^DT"})
+            const weekData = await riderWeekModel.find({name:/^DT/})
             res.json({success:true, weekData})
         }else{
             const weekData = await riderWeekModel.find({})
