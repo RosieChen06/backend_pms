@@ -163,9 +163,15 @@ const massiveRecordUpload = async(req, res)=>{
 }
 
 const readDB = async(req, res) => {
+    const {ta} = req.body
     try{
-        const riders = await riderModel.find({})
-        res.json({success:true, riders})
+        if(ta==='user'){
+            const riders = await riderModel.find({name:"^DT"})
+            res.json({success:true, riders})
+        }else{
+            const riders = await riderModel.find({})
+            res.json({success:true, riders})
+        }
 
     }catch(error){
         console.log(error)
