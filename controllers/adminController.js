@@ -166,10 +166,10 @@ const readDB = async(req, res) => {
     try{
         const {ta} = req.body
         if(ta==='user'){
-            const riders = await riderModel.find({ name: /^DT/ }); 
+            const riders = await riderModel.find({ name: /^DT/ }).limit(100); 
             res.json({success:true, riders})
         }else{
-            const riders = await riderModel.find({})
+            const riders = await riderModel.find({}).limit(100)
             res.json({success:true, riders})
         }
 
