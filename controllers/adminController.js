@@ -203,9 +203,15 @@ const deleteAll = async(req, res) => {
 }
 
 const readWeekDB = async(req, res) => {
+    const {ta} = req.body
     try{
-        const weekData = await riderWeekModel.find({})
-        res.json({success:true, weekData})
+        if(ta==='user'){
+            const weekData = await riderWeekModel.find({name:"^DT"})
+            res.json({success:true, weekData})
+        }else{
+            const weekData = await riderWeekModel.find({})
+            res.json({success:true, weekData})
+        }
 
     }catch(error){
         console.log(error)
