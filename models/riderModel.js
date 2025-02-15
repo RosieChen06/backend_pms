@@ -47,7 +47,7 @@ const riderSchema = new mongoose.Schema({
     weeknum: {type: String, required:true},
 })
 
-riderSchema.index({ status: 1 }); 
+// riderSchema.index({ status: 1 }); 
 
 const riderModel = mongoose.models.rider || mongoose.model('rider', riderSchema)
 
