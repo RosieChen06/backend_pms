@@ -178,12 +178,11 @@ const massiveRecordUpload = async(req, res)=>{
 
 const readDB = async(req, res) => {
     try{
-        userSchema.index({ email: 1 }); 
-        const explainResult = await riderModel.find({}).explain("executionStats");
+        const explainResult = await riderModel.find({status: "submit"}).explain("executionStats");
         console.log("🔍 查詢分析結果:");
         console.dir(explainResult, { depth: null });
-        const riders = await riderModel.find({})
-        res.json({success:true, riders})
+        const riders = await riderModel.find({status: "submit"}))
+        res.json({success:true, explainResult})
 
     }catch(error){
         console.log(error)
