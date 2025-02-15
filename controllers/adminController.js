@@ -181,7 +181,7 @@ const today = new Date();
 // 計算當月、上月、下月
 const getMonthYear = (date) => {
     const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // 月份從 0 開始，因此需要加 1，並補零
+    const month = date.getMonth() + 1;
     return `${year}/${month}`;
 };
 // 上個月
