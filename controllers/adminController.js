@@ -201,7 +201,7 @@ const readDB = async(req, res) => {
         const riders = await riderModel.find({$or: [
         { date: { $regex: `^${currentMonthYear}` } },
         { date: { $regex: `^${prevMonthYear}` } }
-    ]});
+    ]}).limit(50);
         res.json({success:true, riders})
 
     }catch(error){
