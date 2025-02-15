@@ -162,8 +162,23 @@ const massiveRecordUpload = async(req, res)=>{
     }
 }
 
+// const readDB = async(req, res) => {
+//     try{
+//         const explainResult = await riderModel.find({}).explain("executionStats");
+//         console.log("🔍 查詢分析結果:");
+//         console.dir(explainResult, { depth: null });
+//         const riders = await riderModel.find({})
+//         res.json({success:true, riders})
+
+//     }catch(error){
+//         console.log(error)
+//         res.json({success:false, message:error.message})
+//     }
+// }
+
 const readDB = async(req, res) => {
     try{
+        userSchema.index({ email: 1 }); 
         const explainResult = await riderModel.find({}).explain("executionStats");
         console.log("🔍 查詢分析結果:");
         console.dir(explainResult, { depth: null });
