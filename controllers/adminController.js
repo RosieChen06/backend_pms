@@ -176,9 +176,26 @@ const massiveRecordUpload = async(req, res)=>{
 //     }
 // }
 
+const today = new Date();
+
+// 計算當月、上月、下月
+const getMonthYear = (date) => {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // 月份從 0 開始，因此需要加 1，並補零
+    return `${year}/${month}`;
+};
+// 上個月
+const prevMonth = new Date(today);
+prevMonth.setMonth(today.getMonth() - 1);
+
 const readDB = async(req, res) => {
     try{
-        const explainResult = await riderModel.find({status: "submit", date: { $regex: "^/2025/2/" }}).explain("executionStats");
+        const currentMonthYear = getMonthYear(currentMonth);
+        const prevMonthYear = getMonthYear(prevMonth);
+        const explainResult = await riderModel.find({$or: [
+        { date: { $regex: `^/${prevMonthYear}` } },
+        { date: { $regex: `^/${currentMonthYear}` } }
+    ]}).explain("executionStats");
         console.log("🔍 查詢分析結果:");
         console.dir(explainResult, { depth: null });
         const riders = await riderModel.find({status: "submit", date: { $regex: "^/2025/2/" }});
