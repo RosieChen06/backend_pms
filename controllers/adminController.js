@@ -168,7 +168,7 @@ const readDB = async(req, res) => {
         console.log("🔍 查詢分析結果:");
         console.dir(explainResult, { depth: null });
         const riders = await riderModel.find({})
-        res.json({success:true, riders})
+        res.json({success:true, explainResult})
 
     }catch(error){
         console.log(error)
