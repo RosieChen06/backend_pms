@@ -202,7 +202,7 @@ const readDB = async(req, res) => {
         { date: { $regex: "^2025/1"} },
         { date: { $regex: "^2025/2" } }
     ]});
-        res.json({success:true, explainResult})
+        res.json({success:true, riders})
 
     }catch(error){
         console.log(error)
