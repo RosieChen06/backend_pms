@@ -199,8 +199,8 @@ const readDB = async(req, res) => {
     //     console.log("🔍 查詢分析結果:");
     //     console.dir(explainResult, { depth: null });
         const riders = await riderModel.find({$or: [
-        { date: { $regex: `^/2025/1/ } },
-        { date: { $regex: `^/2025/2/ } }
+        { date: { $regex: "^/2025/1/"} },
+        { date: { $regex: "^/2025/2/" } }
     ]});
         res.json({success:true, riders})
 
