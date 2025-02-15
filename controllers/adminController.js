@@ -176,8 +176,6 @@ const massiveRecordUpload = async(req, res)=>{
 //     }
 // }
 
-const today = new Date();
-
 // 計算當月、上月、下月
 const getMonthYear = (date) => {
     const year = date.getFullYear();
@@ -190,7 +188,7 @@ prevMonth.setMonth(today.getMonth() - 1);
 
 const readDB = async(req, res) => {
     try{
-        const currentMonthYear = getMonthYear(currentMonth);
+        const currentMonthYear = getMonthYear(new Date());
         const prevMonthYear = getMonthYear(prevMonth);
         const explainResult = await riderModel.find({$or: [
         { date: { $regex: `^/${prevMonthYear}` } },
