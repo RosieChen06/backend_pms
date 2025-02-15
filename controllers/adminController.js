@@ -176,6 +176,8 @@ const massiveRecordUpload = async(req, res)=>{
 //     }
 // }
 
+const today = new Date();
+
 // 計算當月、上月、下月
 const getMonthYear = (date) => {
     const year = date.getFullYear();
