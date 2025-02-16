@@ -84,32 +84,17 @@ const replyItem = async(req, res) => {
 }
 
 const clientReadDB = async(req, res) => {
+    const {dateInput, riderInput} = req.body
     try{
-        const {dateInput, riderInput} = req.body
+        const dateConditions = JSON.parse(dateInput).map(item => ({ date:  `${item}` }));
+        const riderConditions = JSON.parse(riderInput).map(item => ({ name: `${item}`}));
+        console.log(dateConditions)
+        console.log(riderConditions)
 
-        const dateInputTransform = JSON.parse(dateInput)
-        const riderInputTransform = JSON.parse(riderInput)
-        const dateConditions =  dateInputTransform.map(item => ({ date: { $regex: `^${item}`, $options: "i" }}));
-        const riderConditions = riderInputTransform.map(item => ({ name: { $regex: `^${item}`, $options: "i" }}))         
+        const orConditions = [...dateConditions, ...riderConditions];
+        console.log(orConditions)
 
-        const query = {};
-
-        if (dateConditions.length > 0) {
-            query.$or = [...dateConditions];  // 查詢 date 欄位的條件
-        }
-
-        if (riderConditions.length > 0) {
-            // 如果已有 $or 條件，則將 name 欄位的條件加到已有的 $or 中
-            if (query.$or) {
-                query.$or.push(...riderConditions); 
-            } else {
-                query.$or = [...riderConditions]; // 沒有 $or 條件則建立新的
-            }
-        }
-        
-        if (Object.keys(query).length === 0) {
-            query._id = null;
-        }
+        const query = orConditions.length > 0 ? { $or: orConditions } : { _id: null }; 
 
         const clientData = await riderModel.find(query);
         res.json({success:true, clientData})
