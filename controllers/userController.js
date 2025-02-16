@@ -90,9 +90,8 @@ const clientReadDB = async(req, res) => {
         const riderConditions = JSON.parse(riderInput).map(item => ({ name: `${item}`}));
 
         const orConditions = [...dateConditions, ...riderConditions];
-        console.log(orConditions)
 
-        const query = orConditions.length > 0 ? {$and: [{status: statusInput}, { $or: orConditions }]} : { _id: null }; 
+        const query = orConditions.length > 0 ? {$and: [{status: statusInput}, { $or: orConditions }]} : { status: statusInput }; 
 
         const clientData = await riderModel.find(query);
         res.json({success:true, clientData})
