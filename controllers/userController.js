@@ -86,15 +86,11 @@ const replyItem = async(req, res) => {
 const clientReadDB = async(req, res) => {
     try{
         const {dateInput, riderInput} = req.body
-        console.log(dateInput)
-        console.log(riderInput)
 
-        const dateConditions = Array.isArray(dateInput)
-            ? dateInput.map(item => ({ date: { $regex: `^${item}`, $options: "i" } }))
-            : ["2025/1/3"];
-        const riderConditions = Array.isArray(riderInput)
-            ? riderInput.map(item => ({ name: { $regex: `^${item}`, $options: "i" } }))
-            : ["DT1041HD"];
+        const dateInputTransform = JSON.parse(dateInput)
+        const riderInputTransform = JSON.parse(riderInput)
+        const dateConditions =  dateInputTransform.map(item => ({ date: { $regex: `^${item}`, $options: "i" }}));
+        const riderConditions = riderInputTransform.map(item => ({ name: { $regex: `^${item}`, $options: "i" }}))         
 
         const query = {};
 
