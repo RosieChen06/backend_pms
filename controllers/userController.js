@@ -84,14 +84,13 @@ const replyItem = async(req, res) => {
 }
 
 const clientReadDB = async(req, res) => {
-    const {dateInput, riderInput} = req.body
+    const {dateInput, riderInput, statusInput} = req.body
     try{
         const dateConditions = JSON.parse(dateInput).map(item => ({ date:  `${item}` }));
         const riderConditions = JSON.parse(riderInput).map(item => ({ name: `${item}`}));
-        console.log(dateConditions)
-        console.log(riderConditions)
+        const statusConditions = JSON.parse(statusInput).map(item => ({ name: `${item}`}));
 
-        const orConditions = [...dateConditions, ...riderConditions];
+        const orConditions = [...dateConditions, ...riderConditions, ...statusConditions];
         console.log(orConditions)
 
         const query = orConditions.length > 0 ? { $or: orConditions } : { _id: null }; 
