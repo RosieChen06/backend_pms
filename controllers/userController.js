@@ -86,8 +86,8 @@ const replyItem = async(req, res) => {
 const clientReadDB = async(req, res) => {
     const {dateInput, riderInput} = req.body
     try{
-        const dateConditions = dateFilter.map(item => ({ date: { $regex: `^${item}` } }));
-        const riderConditions = riderFilter.map(item => ({ name: { $regex: `^${item}` } }));
+        const dateConditions = dateInput.map(item => ({ date: { $regex: `^${item}` } }));
+        const riderConditions = riderInput.map(item => ({ name: { $regex: `^${item}` } }));
 
         const orConditions = [...dateConditions, ...riderConditions];
 
