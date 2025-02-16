@@ -198,10 +198,14 @@ const readDB = async(req, res) => {
     ]}).explain("executionStats");
         console.log("🔍 查詢分析結果:");
         console.dir(explainResult, { depth: null });
-        const riders = await riderModel.find({$or: [
-        { date: { $regex: `^${currentMonthYear}` } },
-        { date: { $regex: `^${prevMonthYear}` } }
-    ]},{ name: 1, date: 1, weeknum: 1));
+        const riders = await riderModel.find(
+    { 
+        $or: [
+            { date: { $regex: `^${currentMonthYear}` } },
+            { date: { $regex: `^${prevMonthYear}` } }
+        ] 
+    }, 
+    { name: 1, date: 1, weeknum: 1 });
         res.json({success:true, riders})
 
     }catch(error){
