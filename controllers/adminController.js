@@ -196,7 +196,6 @@ const readDB = async(req, res) => {
         { date: { $regex: `^${currentMonthYear}` } },
         { date: { $regex: `^${prevMonthYear}` } }
     ]}).explain("executionStats");
-        console.log("🔍 查詢分析結果:");
         console.dir(explainResult, { depth: null });
         const riders = await riderModel.find(
     { 
@@ -231,6 +230,22 @@ const deleteAll = async(req, res) => {
         const data = await riderModel.findByIdAndDelete(riderId)
         const weekData = await riderWeekModel.findByIdAndDelete(riderWeekId)
         res.json({success:true, message:"Delete Successful"})
+    }catch(error){
+        console.log(error)
+        res.json({success:false, message:error.message})
+    }
+}
+
+const catchDB = async(req, res) => {
+    try{
+        const {name, weeknum, date} = req.body
+        let query = { name, weeknum };
+        console.log(name)
+        console.log(weeknum)
+
+        const catchData = await riderModel.find(query);
+        res.json({success:true, catchData})
+
     }catch(error){
         console.log(error)
         res.json({success:false, message:error.message})
@@ -313,4 +328,4 @@ const missingParcelRegistration = async(req, res) => {
     }
 }
 
-export {addRecord, readDB, updateDB, readWeekDB, updateWeekDB, missingParcelRegistration, massiveRecordUpload, deleteDB, deleteAll, updateStatus}
+export {addRecord, readDB, updateDB, readWeekDB, updateWeekDB, missingParcelRegistration, massiveRecordUpload, deleteDB, deleteAll, updateStatus, catchDB}
