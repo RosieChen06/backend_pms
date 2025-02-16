@@ -86,6 +86,8 @@ const replyItem = async(req, res) => {
 const clientReadDB = async(req, res) => {
     try{
         const {dateInput, riderInput} = req.body
+        console.log(dateInput)
+        console.log(riderInput)
 
         const dateConditions = Array.isArray(dateInput)
             ? dateInput.map(item => ({ date: { $regex: `^${item}`, $options: "i" } }))
