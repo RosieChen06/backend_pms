@@ -1,5 +1,5 @@
 import express from 'express'
-import {isCheck, replyItem, reportItem, reportWeekItem} from '../controllers/userController.js'
+import {isCheck, replyItem, reportItem, reportWeekItem, clientReadDB} from '../controllers/userController.js'
 import upload from '../middleweares/multer.js'
 
 const userRouter = express.Router()
