@@ -8,5 +8,6 @@ userRouter.post('/confirm-data', upload.single('image'), isCheck)
 userRouter.post('/report', upload.fields([{name: 'image1', maxCount:1},{name: 'image2', maxCount:1},{name: 'image3', maxCount:1}]), reportItem)
 userRouter.post('/week-report', upload.fields([{name: 'image1', maxCount:1},{name: 'image2', maxCount:1},{name: 'image3', maxCount:1}]), reportWeekItem)
 userRouter.post('/reply', upload.fields([{name: 'image1', maxCount:1},{name: 'image2', maxCount:1},{name: 'image3', maxCount:1}]), replyItem)
+userRouter.post('/clientReadData', upload.single('image'), clientReadDB)
 
 export default userRouter
