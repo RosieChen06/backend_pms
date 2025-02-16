@@ -205,7 +205,7 @@ const readDB = async(req, res) => {
             { date: { $regex: `^${prevMonthYear}` } }
         ] 
     }, 
-    { name: 1, date: 1, weeknum: 1 });
+    { name: 1, date: 1, weeknum: 1, status: 1 });
         res.json({success:true, riders})
 
     }catch(error){
