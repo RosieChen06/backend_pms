@@ -238,14 +238,18 @@ const deleteAll = async(req, res) => {
 
 const catchDB = async(req, res) => {
     try{
-        const {name, weeknum, date} = req.body
-        let query = { name, weeknum };
+        const { name, weeknum, date } = req.body;
+        const query = date === 'na' 
+            ? { name, weeknum }  
+            : { name, date };
+
         console.log(name)
-        console.log(weeknum)
+        console.log(query)
 
-        const catchData = await riderModel.find(query);
-        res.json({success:true, catchData})
+        const catchData = await riderModel.find(query)
+        const catchWeekData = await riderWeekModel.find({ name, weeknum });
 
+        res.json({ success: true, catchData, catchWeekData });
     }catch(error){
         console.log(error)
         res.json({success:false, message:error.message})
