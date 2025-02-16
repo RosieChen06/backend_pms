@@ -86,8 +86,14 @@ const replyItem = async(req, res) => {
 const clientReadDB = async(req, res) => {
     const {dateInput, riderInput} = req.body
     try{
-        const dateConditions = dateInput.map(item => ({ date: { $regex: `^${item}` } }));
-        const riderConditions = riderInput.map(item => ({ name: { $regex: `^${item}` } }));
+        const { dateInput = [], riderInput = [] } = req.body;
+
+        const dateConditions = Array.isArray(dateInput)
+            ? dateInput.map(item => ({ date: { $regex: `^${item}`, $options: "i" } }))
+            : [];
+        const riderConditions = Array.isArray(riderInput)
+            ? riderInput.map(item => ({ name: { $regex: `^${item}`, $options: "i" } }))
+            : [];
 
         const orConditions = [...dateConditions, ...riderConditions];
 
