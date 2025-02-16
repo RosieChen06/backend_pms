@@ -90,7 +90,7 @@ const clientReadDB = async(req, res) => {
 
         const dateConditions = Array.isArray(dateInput)
             ? dateInput.map(item => ({ date: { $regex: `^${item}`, $options: "i" } }))
-            : [];
+            : ["2025/1/3"];
         const riderConditions = Array.isArray(riderInput)
             ? riderInput.map(item => ({ name: { $regex: `^${item}`, $options: "i" } }))
             : ["DT1041HD"];
