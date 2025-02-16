@@ -118,7 +118,7 @@ const clientReadDB = async(req, res) => {
 
     }catch(error){
         console.log(error)
-        res.json({success:false, message:error.message, dateInput:dateInput, riderInput: riderInput})
+        res.json({success:false, message:error.message})
     }
 }
 
