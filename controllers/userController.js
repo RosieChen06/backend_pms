@@ -83,6 +83,25 @@ const replyItem = async(req, res) => {
     }
 }
 
+const clientReadDB = async(req, res) => {
+    const {dateFilter, riderFilter} = req.body
+    try{
+        const dateConditions = dateFilter.map(item => ({ date: { $regex: `${item}` } }));
+        const riderConditions = riderFilter.map(item => ({ name: { $regex: `${item}` } }));
+
+        const orConditions = [...dateConditions, ...riderConditions];
+
+        const query = orConditions.length > 0 ? { $or: orConditions } : { _id: null }; 
+
+        const clientData = await riderModel.find(query);
+        res.json({success:true, clientData})
+
+    }catch(error){
+        console.log(error)
+        res.json({success:false, message:error.message})
+    }
+}
+
 const reportWeekItem = async(req, res) => {
     try{
 
@@ -111,4 +130,4 @@ const reportWeekItem = async(req, res) => {
     }
 }
 
-export {isCheck, reportItem, replyItem, reportWeekItem}
+export {isCheck, reportItem, replyItem, reportWeekItem, clientReadDB}
