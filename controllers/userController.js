@@ -94,9 +94,24 @@ const clientReadDB = async(req, res) => {
             ? riderInput.map(item => ({ name: { $regex: `^${item}`, $options: "i" } }))
             : ["DT1041HD"];
 
-        const orConditions = [...dateConditions, ...riderConditions];
+        const query = {};
 
-        const query = orConditions.length > 0 ? { $or: orConditions } : { _id: null }; 
+        if (dateConditions.length > 0) {
+            query.$or = [...dateConditions];  // 查詢 date 欄位的條件
+        }
+
+        if (riderConditions.length > 0) {
+            // 如果已有 $or 條件，則將 name 欄位的條件加到已有的 $or 中
+            if (query.$or) {
+                query.$or.push(...riderConditions); 
+            } else {
+                query.$or = [...riderConditions]; // 沒有 $or 條件則建立新的
+            }
+        }
+        
+        if (Object.keys(query).length === 0) {
+            query._id = null;
+        }
 
         const clientData = await riderModel.find(query);
         res.json({success:true, clientData})
