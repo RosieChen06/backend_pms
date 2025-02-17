@@ -91,7 +91,7 @@ const clientReadDB = async(req, res) => {
 
         const orConditions = [...dateConditions, ...riderConditions];
 
-        const query = orConditions.length > 0 ? {$and: [{status: statusInput}, { $or: orConditions }]} : { status: statusInput }; 
+        const query = orConditions.length > 0 ? {$and: [{status: statusInput}, { $and: orConditions }]} : { status: statusInput }; 
 
         const clientData = await riderModel.find(query);
         res.json({success:true, clientData})
