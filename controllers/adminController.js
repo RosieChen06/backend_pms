@@ -162,20 +162,6 @@ const massiveRecordUpload = async(req, res)=>{
     }
 }
 
-// const readDB = async(req, res) => {
-//     try{
-//         const explainResult = await riderModel.find({}).explain("executionStats");
-//         console.log("🔍 查詢分析結果:");
-//         console.dir(explainResult, { depth: null });
-//         const riders = await riderModel.find({})
-//         res.json({success:true, riders})
-
-//     }catch(error){
-//         console.log(error)
-//         res.json({success:false, message:error.message})
-//     }
-// }
-
 const today = new Date();
 
 // 計算當月、上月、下月
