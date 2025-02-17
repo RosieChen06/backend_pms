@@ -83,24 +83,48 @@ const replyItem = async(req, res) => {
     }
 }
 
-const clientReadDB = async(req, res) => {
-    const {dateInput, riderInput, statusInput} = req.body
-    try{
-        const dateConditions = JSON.parse(dateInput).map(item => ({ date:  `${item}` }));
-        const riderConditions = JSON.parse(riderInput).map(item => ({ name: `${item}`}));
+const clientReadDB = async (req, res) => {
+    try {
+        const { dateInput, riderInput, statusInput } = req.body;
 
-        const orConditions = [...dateConditions, ...riderConditions];
+        // 確保 statusInput 存在
+        if (!statusInput) {
+            return res.status(400).json({ success: false, message: "Missing statusInput" });
+        }
 
-        const query = orConditions.length > 0 ? {$and: [{status: statusInput}, { $or: orConditions }]} : { status: statusInput }; 
+        let dateConditions = [];
+        let riderConditions = [];
+        try {
+            if (dateInput) {
+                dateConditions = JSON.parse(dateInput).map(item => ({ date: item }));
+            }
+        } catch (error) {
+            return res.status(400).json({ success: false, message: "Invalid dateInput JSON format" });
+        }
+
+        try {
+            if (riderInput) {
+                riderConditions = JSON.parse(riderInput).map(item => ({ name: item }));
+            }
+        } catch (error) {
+            return res.status(400).json({ success: false, message: "Invalid riderInput JSON format" });
+        }
+
+        const andConditions = [...dateConditions, ...riderConditions];
+
+        const query = andConditions.length > 0
+            ? { $and: [{ status: statusInput }, ...andConditions] }
+            : { status: statusInput };
 
         const clientData = await riderModel.find(query);
-        res.json({success:true, clientData})
 
-    }catch(error){
-        console.log(error)
-        res.json({success:false, message:error.message})
+        return res.json({ success: true, clientData });
+
+    } catch (error) {
+        console.error("Database Query Error:", error);
+        return res.status(500).json({ success: false, message: "Internal server error" });
     }
-}
+};
 
 const reportWeekItem = async(req, res) => {
     try{
