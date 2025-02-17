@@ -16,6 +16,30 @@ const isCheck = async(req, res) => {
     }
 }
 
+const clientReadDB = async(req, res) => {
+    const {dateInput, riderInput, statusInput} = req.body
+    console.log(dateInput)
+    console.log(riderInput)
+    console.log(statusInput)
+    try{
+        const dateConditions = JSON.parse(dateInput).map(item => ({ date:  `${item}` }));
+        const riderConditions = JSON.parse(riderInput).map(item => ({ name: `${item}`}));
+        console.log(dateConditions)
+
+        const andConditions = [...dateConditions, ...riderConditions];
+
+        const query = andConditions.length > 0 ? {$and: [{status: statusInput}, { $or: dateConditions }, { $or: riderConditions }]} : { status: statusInput };
+        console.log(query) 
+
+        const clientData = await riderModel.find(query);
+        res.json({success:true, clientData})
+
+    }catch(error){
+        console.log(error)
+        res.json({success:false, message:error.message})
+    }
+}
+
 const reportItem = async(req, res) => {
     try{
 
@@ -76,30 +100,6 @@ const replyItem = async(req, res) => {
             await riderWeekModel.findByIdAndUpdate(riderId, {status, comment, image: imageUrl})
         }
         res.json({success:true, message:"已提交回復"})
-
-    }catch(error){
-        console.log(error)
-        res.json({success:false, message:error.message})
-    }
-}
-
-const clientReadDB = async(req, res) => {
-    const {dateInput, riderInput, statusInput} = req.body
-    console.log(dateInput)
-    console.log(riderInput)
-    console.log(statusInput)
-    try{
-        const dateConditions = JSON.parse(dateInput).map(item => ({ date:  `${item}` }));
-        const riderConditions = JSON.parse(riderInput).map(item => ({ name: `${item}`}));
-        console.log(dateConditions)
-
-        const andConditions = [...dateConditions, ...riderConditions];
-
-        const query = andConditions.length > 0 ? {$and: [{status: statusInput}, { $or: dateConditions }, { $or: riderConditions }]} : { status: statusInput };
-        console.log(query) 
-
-        const clientData = await riderModel.find(query);
-        res.json({success:true, clientData})
 
     }catch(error){
         console.log(error)
