@@ -5,9 +5,14 @@ import {v2 as cloudinary} from 'cloudinary'
 const isCheck = async(req, res) => {
     try{
 
-        const { riderId, status} = req.body
-        await riderModel.findByIdAndUpdate(riderId, {status})
-        res.json({success:true, message:"資料已確認"})
+        const { riderId, status, type} = req.body
+        if(type==='day'){
+            await riderModel.findByIdAndUpdate(riderId, {status})
+            res.json({success:true, message:"資料已確認"})
+        }else{
+            await riderWeekModel.findByIdAndUpdate(riderId, {status})
+            res.json({success:true, message:"資料已確認"})
+        }
 
 
     }catch(error){
