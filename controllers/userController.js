@@ -14,7 +14,6 @@ const isCheck = async(req, res) => {
             res.json({success:true, message:"資料已確認"})
         }
 
-
     }catch(error){
         console.log(error)
         res.json({success:false, message:error.message})
@@ -45,10 +44,10 @@ const clientReadDB = async(req, res) => {
     }
 }
 
-const replyItem = async(req, res) => {
+const reportItem = async(req, res) => {
     try{
 
-        const { riderId, status, comment, imageUrl1, imageUrl2, imageUrl3, type} = req.body
+        const { riderId, status, reportItem, comment, reportdatetime} = req.body
         const image1 = req.files.image1 && req.files.image1[0]
         const image2 = req.files.image2 && req.files.image2[0]
         const image3 = req.files.image3 && req.files.image3[0]
@@ -61,22 +60,11 @@ const replyItem = async(req, res) => {
                 return result.secure_url
             })
         )
-        if(imageUrl1.startsWith('http')){
-            imageUrl.push(imageUrl1)
-        }
-        if(imageUrl2.startsWith('http')){
-            imageUrl.push(imageUrl2)
-        }
-        if(imageUrl3.startsWith('http')){
-            imageUrl.push(imageUrl3)
-        }
 
-        if(type==='day'){
-            await riderModel.findByIdAndUpdate(riderId, {status, comment, image: imageUrl})
-        }else{
-            await riderWeekModel.findByIdAndUpdate(riderId, {status, comment, image: imageUrl})
-        }
-        res.json({success:true, message:"已提交回復"})
+        console.log(imageUrl)
+
+        await riderModel.findByIdAndUpdate(riderId, {status, reportItem, comment, image: imageUrl, reportdatetime})
+        res.json({success:true, message:"已提交回報"})
 
     }catch(error){
         console.log(error)
