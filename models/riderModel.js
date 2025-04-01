@@ -49,6 +49,6 @@ const riderSchema = new mongoose.Schema({
 
 riderSchema.index({ date: 1}); 
 
-const riderModel = mongoose.models.rider || mongoose.model('rider', riderSchema)
+const riderModel = mongoose.models.riders || mongoose.model('riders', riderSchema)
 
 export default riderModel
