@@ -20,6 +20,6 @@ const riderWeekSchema = new mongoose.Schema({
     is_online_bonus:{type: String, required:true},
 })
 
-const riderWeekModel = mongoose.models.riderByWeek || mongoose.model('riderByWeek', riderWeekSchema)
+const riderWeekModel = mongoose.models.riderbyWeek || mongoose.model('riderbyWeek', riderWeekSchema)
 
 export default riderWeekModel

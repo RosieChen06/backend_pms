@@ -54,8 +54,6 @@ const addRecord = async(req, res)=>{
         await newRecord.save()
 
         const isExist = await riderWeekModel.find({weeknum:weeknum, name:name})
-        console.log(weeknum)
-        console.log(isExist.length)
         if(isExist.length===0){
             const riderData2 = {
                 phone,
